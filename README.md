@@ -63,6 +63,18 @@ ISW_2026_4K4_G4
 
 | Ítem                                           | Tipo                 | Regla de nombrado                          | Ubicación                                                                 |
 |-----------------------------------------------|----------------------|--------------------------------------------|---------------------------------------------------------------------------|
+| Presentaciones de Clase                       | Material de Estudio  | `<<Nro>>_<<Tema>>.pdf`                     | `ISW_2026_4K4_G4/Documentacion/Presentaciones de Clases/`                |
+| Programa de Ingeniería y Calidad de Software  | Planificación        | `Programa_ISW_2026.pdf`                    | `ISW_2026_4K4_G4/Planificación/`                                          |
+| Cronograma de Clases                          | Planificación        | `2026 Cronograma ISW 4K4 Alumnos.xlsx`       | `ISW_2026_4K4_G4/Planificación/`                                          |
+| Guía de Ejercicios Prácticos Resueltos        | Material de Estudio  | `Guía de Ejercicios Prácticos Resueltos.pdf` | `ISW_2026_4K4_G4/Documentacion/`                                     |
+| Guía de Trabajos Prácticos Evaluables         | Material de Estudio  | `Guía de Trabajos Prácticos Evaluables.pdf` | `ISW_2026_4K4_G4/Documentacion/`                                     |
+| Lineamientos para Trabajos de Investigación Grupal   | Planificación        | `ISW_Lineamientos_2026.pdf`                | `ISW_2026_4K4_G4/Entregas/Trabajos de Investigacion Grupal/`             |
+| Bibliografía                                  | Material de Estudio  | `<<Titulo>>_<<Autor>>.pdf`                 | `ISW_2026_4K4_G4/Documentacion/Bibliografía/`                             |
+| Trabajos Prácticos                            | Entregas             | `TP_<<Tema>>.pdf`                          | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables`                     |
+| Clases Grabadas                                | Material de Estudio  | `ISW_Clases_grabadas.xlsx`                 | `ISW_2026_4K4_G4/Documentación/`                                          |
+| Presentación de la materia ISW                | Planificación        | `Presentación_ISW.pdf`                     | `ISW_2026_4K4_G4/Planificación/`                                          |
+| Trabajos de Investigación Grupal              | Entregas             | `TIG<<Nro>>_<<Tema>>.pdf`                  | `ISW_2026_4K4_G4/Entregas/Trabajos de Investigación Grupal/`             |
+| Documento de Decisiones de Diseño y Estilo de Código | Entregas        | `Decisiones de Diseño y Estilo de Código.pdf` | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables` |
 
 ---
 
