@@ -22,6 +22,7 @@
 - Alvaretto Caterina - 95028
 - Arrigo Gaspar - 94135
 - Baigorria Jesica Belen - 401824
+- Basly Agustin - 99238
 - Botta Bernaus Fabrizio - 79553
 - Galera Pedro - 90243
 - Nasimbera Falco Fabrizio Edgar - 96095
