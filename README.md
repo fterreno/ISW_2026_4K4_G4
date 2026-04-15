@@ -19,18 +19,18 @@
 
 **Integrantes:**
 
-- Alvaretto Caterina - 95028
-- Arrigo Gaspar - 94135
-- Amor Ignacio - 89507
-- Baigorria Jesica Belen - 401824
-- Basly Agustin - 99238
-- Botta Bernaus Fabrizio - 79553
-- Galera Pedro - 90243
-- Nasimbera Falco Fabrizio Edgar - 96095
-- Moyano Serra Tomas - 96846
-- Paná Matías Aarón - 95165
-- Soldera Theaux Federico - 79554
-- Terreno Monla Florencia Sofia - 90112
+- Alvaretto, Caterina - 95028
+- Arrigo, Gaspar - 94135
+- Amor, Ignacio - 89507
+- Baigorria, Jesica Belen - 401824
+- Basly, Agustin - 99238
+- Botta Bernaus, Fabrizio - 79553
+- Galera, Pedro - 90243
+- Nasimbera Falco, Fabrizio Edgar - 96095
+- Moyano Serra, Tomas - 96846
+- Paná, Matías Aarón - 95165
+- Soldera Theaux, Federico - 79554
+- Terreno Monla, Florencia Sofia - 90112
 
 **Docentes:**  
 - Ing. Laura Covaro
