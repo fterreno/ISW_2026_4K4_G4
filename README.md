@@ -48,7 +48,7 @@
 
 ## Criterio de Línea Base
 
-Establecemos como criterio para implementar línea base los días posteriores a la entrega y corrección de los trabajos prácticos evaluables, con la finalidad de que el repositorio se encuentre actualizado y con información validada. Se identificara de la siguiente forma: `Correccion_TP_<<Nro>> `.
+Establecemos como criterio para implementar línea base los días posteriores a la entrega y corrección de los trabajos prácticos evaluables, con la finalidad de que el repositorio se encuentre actualizado y con información validada. Se identificara de la siguiente forma: `Correccion_<<Nro>> `.
 
 ---
 
