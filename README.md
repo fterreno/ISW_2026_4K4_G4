@@ -48,7 +48,7 @@
 
 ## Criterio de Línea Base
 
-Establecemos como criterio para implementar línea base los días posteriores a la entrega y corrección de los trabajos prácticos, con la finalidad de que el repositorio se encuentre actualizado y con información validada.
+Establecemos como criterio para implementar línea base los días posteriores a la entrega y corrección de los trabajos prácticos evaluables, con la finalidad de que el repositorio se encuentre actualizado y con información validada. Se identificara de la siguiente forma: `Correccion_TP_<<Nro>> `.
 
 ---
 
@@ -76,12 +76,16 @@ ISW_2026_4K4_G4
 | Guía de Trabajos Prácticos Evaluables         | Material de Estudio  | `Guía de Trabajos Prácticos Evaluables.pdf` | `ISW_2026_4K4_G4/Documentacion/`                                     |
 | Lineamientos para Trabajos de Investigación Grupal   | Planificación        | `ISW_Lineamientos_2026.pdf`                | `ISW_2026_4K4_G4/Entregas/Trabajos de Investigacion Grupal/`             |
 | Bibliografía                                  | Material de Estudio  | `<<Titulo>>.pdf`                 | `ISW_2026_4K4_G4/Documentacion/Bibliografía/`                             |
-| Trabajos Prácticos                            | Entregas             | `TP_<<Tema>>.pdf`                          | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables`                     |
+| Trabajos Prácticos                            | Entregas             | `TP_<<Tema>>`                          | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables`                     |
 | Clases Grabadas                                | Material de Estudio  | `ISW_Clases_grabadas.xlsx`                 | `ISW_2026_4K4_G4/Documentación/`                                          |
 | Presentación de la materia ISW                | Planificación        | `Presentación_ISW.pdf`                     | `ISW_2026_4K4_G4/Planificación/`                                          |
 | Trabajos de Investigación Grupal              | Entregas             | `TIG<<Nro>>_<<Tema>>.pdf`                  | `ISW_2026_4K4_G4/Entregas/Trabajos de Investigación Grupal/`             |
 | Documento de Decisiones de Diseño y Estilo de Código | Entregas        | `Decisiones de Diseño y Estilo de Código.pdf` | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables` |
 | Herramientas para presentacion de informacion | planificacion        | `Herramientas para presentacion de informacion.pdf` | `ISW_2026_4K4_G4/Planificacion` |
+| Plantilla Charla Ted | Planificacion | `Plantilla charla ted.pdf` | `ISW_2026_4K4_G4/Planificacion` |
+| Liniamientos para trabajos de investigacion grupal | `Liniamientos para trabajos de investigacion grupal` | `ISW_2026_4K4_G4/Planificacion` |
+| Resoluciones del grupo | Material de Estudio | `TP_<<Nro>>_<<Autor>>` | `ISW_2026_4K4_G4/Documentacion/Resoluciones` |
+| Resumen Propios | Material de Estudio | `Parcial_<<Nro>_<<Autor>>` | `ISW_2026_4K4_G4/Documentacion/Resumenes` |
 ---
 
 ## Referencias
