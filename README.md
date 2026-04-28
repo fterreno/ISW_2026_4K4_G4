@@ -86,17 +86,18 @@ ISW_2026_4K4_G4
 | Liniamientos para trabajos de investigacion grupal | `Liniamientos para trabajos de investigacion grupal` | `ISW_2026_4K4_G4/Planificacion` |
 | Resoluciones del grupo | Material de Estudio | `TP_<<Nro>>_<<Autor>>` | `ISW_2026_4K4_G4/Documentacion/Resoluciones` |
 | Resumen Propios | Material de Estudio | `Parcial_<<Nro>_<<Autor>>` | `ISW_2026_4K4_G4/Documentacion/Resumenes` |
+| Toma de Notas | Material de Estudio | `<<Fecha>>_<<Autor>>` | `ISW_2026_4K4_G4/Documentacion/Clases` |
 ---
 
 ## Referencias
 
 | Sigla       | Significado                                                                 |
-|-------------|------------------------------------------------------------------------------|
+|-------------|-----------------------------------------------------------------------------|
 | `<<Nro>>`   | Valor numérico entero de dos dígitos (Ej: 01)                               |
 | `<<Tema>>`  | Nombre del tema al cual corresponde el ejercicio o el material              |
 | `<<Titulo>>`| Título del material bibliográfico, usando notación `camelCase`              |
 | `<<Autor>>` | Nombre del autor del material bibliográfico, usando notación `camelCase`    |
-
+| `<<Fecha>>` | Dia-Mes de la clase donde se tomo nota                                      |
 ---
 
 ## Glosario
