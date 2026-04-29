@@ -43,21 +43,23 @@ Incertidumbre: Bajo. No hay desconocimiento a la hora de plantear los datos que 
 
 Como Analista de Publicacion quiero generar la propuesta de venta para notificar al vendedor sobre las prendas seleccionadas disponibles para su venta.
 Criterios de aceptacion:
-- Debe visualizar los datos de la prenda mediante el escaneo de un codigo QR
-- Debe cargar hasta 5 fotos con un peso maximo de 1Mb
-- Debe registrar nombre de la prenda, pero en kilogramos, precio sugerido, y atributos dinamicos segun la categoria.
-- Debe calcularse el precio sugerido en base a una lista de precio por categoria, marca, estacionalidad, y estado de la prenda.
-- Puede modificar el precio sugerido de la prenda por un monto positivo.
-- Debe notificar al vendedor por mail.
+- Debe visualizar los datos de la prenda mediante el escaneo de un codigo QR /
+- Debe cargar hasta 5 fotos con un peso maximo de 1Mb /
+- Debe registrar nombre de la prenda, pero en kilogramos, precio sugerido, y atributos dinamicos segun la categoria. /
+- Debe calcularse el precio sugerido en base a una lista de precio por categoria, marca, estacionalidad, y estado de la prenda. /
+- Puede modificar el precio sugerido de la prenda por un monto positivo. /
+- Debe notificar al vendedor por mail. /
 - La propuesta debe contener fecha y cantidad de prendas, el listado de todas las prendas seleccionadas y la ganancia que obtendrá al venderse,
-     también el listado de todas las prendas que no quedaron seleccionadas. 
+     también el listado de todas las prendas que no quedaron seleccionadas. /
 Pruebas de Usuario:
 - Probar consultar los datos mediante el escaneo del codigo QR (pasa)
 - Probar cargar hasta 5 fotos con un peso de 1Mb (pasa)
 - Probar cargar mas de 5 fotos con un peso mayor a 1Mb (falla)
-- Probar cargando nombre de la prenda, peso en kiloframos, precio sugerido y atributos dinamicos. (pasa)
-- Probar modificar el precio sugerido (pasa)
+- Probar cargando nombre de la prenda, peso en kiloframos, precio sugerido, atributos dinamicos, enviando el mail al vendedor. (pasa)
+- Probar modificar el precio sugerido con un valor valido (pasa)
+- Probar no completar todas las fichas (falla)
+
 
 Estimacion: 8
 
-Justificacion: Contamos con la lectura y la desencriptacion de un Codigo QR, una notificacion via mail, y un algoritmo de calculo de precio sugerido el cual debe de obtenerse en base a un listado de precios que contamos en la base de datos. Se requiere el ingreso de distintos datos como las fotos, nombre de la prenda, peso, precio, y los demas atributos dinamicos segun la categoria, ademas debe de completarse la propuesta con todos estos datos anteriores. Son muchas funcionalidades distintas (envio de mail, lectura de QR, carga de fotos y carga de datos mediante formulario). No se como se implementa la lectura y desencriptacion de un codigo QR. Y no se sabe como se calcula en especifico el algoritmo de calculo de costos.
+Justificacion: Contamos con la lectura y la desencriptacion de un Codigo QR, una notificacion via mail, y un algoritmo de calculo de precio sugerido el cual debe de obtenerse en base a un listado de precios que contamos en la base de datos. Se requiere el ingreso de distintos datos como las fotos, nombre de la prenda, peso, precio, y los demas atributos dinamicos segun la categoria, ademas debe de completarse la propuesta con todos estos datos anteriores. Son muchas funcionalidades distintas (envio de mail, lectura de QR, carga de fotos y carga de datos mediante formulario). No se como se implementa la lectura y desencriptacion de un codigo QR. Y no se sabe como se calcula en especifico el algoritmo de calculo de costos. No se sabe como se calcula el peso de la prenda.
