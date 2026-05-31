@@ -4,16 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EcoHarmony Park — Inscripciones</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <span class="logo-icon">🌿</span>
-    <h1>EcoHarmony Park</h1>
-    <p>Sistema de inscripción a actividades</p>
-  </header>
+  <eco-header></eco-header>
 
   <div class="contenedor">
 
@@ -32,9 +28,13 @@
     <div class="tarjeta">
       <h2 class="paso-titulo">¿Qué actividad elegís?</h2>
       <p class="paso-subtitulo">Seleccioná una de las experiencias disponibles en el parque.</p>
-      <div class="grid-actividades" id="grid-actividades">
-        <p style="color:#aaa; font-size:0.85rem">Cargando actividades...</p>
+
+      <div class="lista-actividades" id="lista-actividades">
+        <p style="color:var(--texto-suave);font-size:0.85rem">Cargando actividades...</p>
       </div>
+
+      <div class="alerta" id="error-1"><span></span></div>
+
       <div class="nav-botones">
         <button class="btn btn-primario" id="btn-siguiente">Continuar →</button>
       </div>
@@ -42,75 +42,7 @@
 
   </div>
 
-  <script>
-    const CON_TALLE = ['Tirolesa', 'Palestra'];
-    const ICONOS = { 'Tirolesa': '🧗', 'Safari': '🦁', 'Palestra': '🧱', 'Jardinería': '🌱' };
-
-    function getState() {
-      try { return JSON.parse(localStorage.getItem('ecoState') || '{}'); } catch { return {}; }
-    }
-    function setState(updates) {
-      const s = getState();
-      localStorage.setItem('ecoState', JSON.stringify({ ...s, ...updates }));
-    }
-
-    let actividadSeleccionada = getState().actividadSeleccionada || null;
-
-    function mostrarError(msg) {
-      const el = document.getElementById('error-1');
-      el.querySelector('span').textContent = msg;
-      el.classList.add('visible');
-      setTimeout(() => el.classList.remove('visible'), 5000);
-    }
-
-    async function cargarActividades() {
-      try {
-        const res = await fetch('/api/actividades');
-        const data = await res.json();
-        const grid = document.getElementById('grid-actividades');
-        grid.innerHTML = '';
-        data.actividades.forEach(nombre => {
-          const tieneTalle = CON_TALLE.includes(nombre);
-          const card = document.createElement('div');
-          card.className = 'card-actividad' + (nombre === actividadSeleccionada ? ' seleccionada' : '');
-          card.dataset.nombre = nombre;
-          card.innerHTML = `
-            <span class="icono">${ICONOS[nombre] || '🌿'}</span>
-            <span class="nombre">${nombre}</span>
-            ${tieneTalle ? '<span class="badge-talle">requiere talle</span>' : ''}
-          `;
-          card.addEventListener('click', () => {
-            document.querySelectorAll('.card-actividad').forEach(c => c.classList.remove('seleccionada'));
-            card.classList.add('seleccionada');
-            actividadSeleccionada = nombre;
-          });
-          grid.appendChild(card);
-        });
-      } catch {
-        document.getElementById('grid-actividades').innerHTML =
-          '<p style="color:red">Error al cargar actividades. ¿Está corriendo el servidor?</p>';
-      }
-    }
-
-    document.getElementById('btn-siguiente').addEventListener('click', () => {
-      if (!actividadSeleccionada) {
-        mostrarError('Por favor seleccioná una actividad.');
-        return;
-      }
-      setState({
-        actividadSeleccionada,
-        requiereTalle: CON_TALLE.includes(actividadSeleccionada),
-        horarioSeleccionado: null,
-        visitantes: [],
-        email: '',
-        cantidadVisitantes: 1,
-        inscripcion: null,
-      });
-      window.location.href = 'paso2.html';
-    });
-
-    cargarActividades();
-  </script>
-
+  <script src="app.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
