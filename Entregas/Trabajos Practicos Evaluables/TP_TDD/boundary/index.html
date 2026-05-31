@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHarmony Park — Inscripciones</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <eco-header></eco-header>
+
+  <div class="contenedor">
+
+    <div class="progreso-wrapper">
+      <div class="pasos-labels">
+        <span class="paso-label activo">Actividad</span>
+        <span class="paso-label">Horario</span>
+        <span class="paso-label">Visitantes</span>
+        <span class="paso-label">Confirmar</span>
+      </div>
+      <div class="barra-progreso">
+        <div class="barra-fill" style="width: 25%"></div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="paso-titulo">¿Qué actividad elegís?</h2>
+      <p class="paso-subtitulo">Seleccioná una de las experiencias disponibles en el parque.</p>
+
+      <div class="lista-actividades" id="lista-actividades">
+        <p style="color:var(--texto-suave);font-size:0.85rem">Cargando actividades...</p>
+      </div>
+
+      <div class="alerta" id="error-1"><span></span></div>
+
+      <div class="nav-botones">
+        <button class="btn btn-primario" id="btn-siguiente">Continuar →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

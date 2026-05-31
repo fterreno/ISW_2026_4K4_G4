@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHarmony Park — Visitantes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <eco-header></eco-header>
+
+  <div class="contenedor">
+
+    <div class="progreso-wrapper">
+      <div class="pasos-labels">
+        <span class="paso-label completado">Actividad</span>
+        <span class="paso-label completado">Horario</span>
+        <span class="paso-label activo">Visitantes</span>
+        <span class="paso-label">Confirmar</span>
+      </div>
+      <div class="barra-progreso">
+        <div class="barra-fill" style="width: 75%"></div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="paso-titulo">Datos de los visitantes</h2>
+      <p class="paso-subtitulo">Indicá cuántas personas participarán y sus datos.</p>
+
+      <div class="campo">
+        <label>Cantidad de personas</label>
+        <div class="counter-wrapper">
+          <button class="btn-counter" id="btn-menos" disabled>−</button>
+          <span class="counter-numero" id="cantidad-display">1</span>
+          <button class="btn-counter" id="btn-mas">+</button>
+        </div>
+      </div>
+
+      <div id="formulario-visitantes"></div>
+
+      <div class="campo campo-email">
+        <label>Email para confirmación</label>
+        <input type="email" id="input-email" placeholder="tu@email.com" />
+      </div>
+
+      
+      <div class="alerta" id="error-3"><span></span></div>
+
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-atras">← Volver</button>
+        <button class="btn btn-primario"   id="btn-siguiente">Continuar →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script src="formularioVisitantes.js"></script>
+</body>
+</html>
