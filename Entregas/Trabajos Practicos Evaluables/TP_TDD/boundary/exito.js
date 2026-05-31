@@ -10,7 +10,7 @@ if (!state.inscripcion) {
     <div class="exito-fila"><span>Visitantes</span><span>${ins.visitantes.length} persona${ins.visitantes.length > 1 ? 's' : ''}</span></div>
     <div class="exito-fila"><span>Email</span><span>${state.email}</span></div>
   `;
-  document.getElementById('exito-id').textContent = `ID de inscripciÃ³n: ${ins.id}`;
+  document.getElementById('exito-id').textContent = `ID de inscripción: ${ins.id}`;
 }
 
 document.getElementById('btn-nueva').addEventListener('click', () => {

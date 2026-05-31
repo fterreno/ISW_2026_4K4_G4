@@ -8,7 +8,7 @@ document.getElementById('acepta-terminos').addEventListener('change', function (
 });
 
 document.getElementById('btn-atras').addEventListener('click', () => {
-  window.location.href = 'formularioVisiantes.html';
+  window.location.href = 'formularioVisitantes.html';
 });
 
 document.getElementById('btn-confirmar').addEventListener('click', async () => {

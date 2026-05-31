@@ -41,11 +41,11 @@ document.getElementById('btn-atras').addEventListener('click', () => {
 
 document.getElementById('btn-siguiente').addEventListener('click', () => {
   if (!horarioSeleccionado) {
-    mostrarError('error-2', 'Por favor seleccionÃ¡ un horario.');
+    mostrarError('error-2', 'Por favor seleccioná un horario.');
     return;
   }
   setState({ horarioSeleccionado, cantidadVisitantes: 1, visitantes: [], email: '' });
-  window.location.href = 'formularioVisiantes.html';
+  window.location.href = 'formularioVisitantes.html';
 });
 
 cargarHorarios();
