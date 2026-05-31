@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
-import { ServicioInscripcion } from "./servicioInscripcion";
-import { EmailServiceConsola } from "./EmailServiceConsola";
-import { actividadesEnMemoria } from "./datos";
+import { ServicioInscripcion } from "./services/servicioInscripcion";
+import { EmailServiceConsola } from "./services/EmailServiceConsola";
+import { actividadesEnMemoria } from "./data/datos";
 
 const app = express();
 app.use(cors());
@@ -22,11 +22,11 @@ app.get("/api/actividades", (_req, res) => {
 // ── GET /api/actividades/:nombre/horarios ────────────────────────────────────
 app.get("/api/actividades/:nombre/horarios", (req, res) => {
   try {
-    const nombre = req.params["nombre"] as any;
-    const horarios = servicio.obtenerHorariosDisponibles(nombre);
+    const { nombre } = req.params as { nombre: string };
+    const horarios = servicio.obtenerHorariosDisponibles(nombre as any);
     res.json({ horarios });
-  } catch (e: any) {
-    res.status(404).json({ error: e.message });
+  } catch (e) {
+    res.status(404).json({ error: e instanceof Error ? e.message : String(e) });
   }
 });
 
@@ -36,8 +36,8 @@ app.post("/api/inscripciones", (req, res) => {
     const { solicitud, email } = req.body;
     const inscripcion = servicio.inscribir(solicitud, email);
     res.status(201).json({ inscripcion });
-  } catch (e: any) {
-    res.status(400).json({ error: e.message });
+  } catch (e) {
+    res.status(400).json({ error: e instanceof Error ? e.message : String(e) });
   }
 });
 
