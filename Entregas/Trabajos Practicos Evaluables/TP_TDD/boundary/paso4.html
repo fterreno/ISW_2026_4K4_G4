@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHarmony Park — Confirmar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <span class="logo-icon">🌿</span>
+    <h1>EcoHarmony Park</h1>
+    <p>Sistema de inscripción a actividades</p>
+  </header>
+
+  <div class="contenedor">
+
+    <div class="progreso-wrapper">
+      <div class="pasos-labels">
+        <span class="paso-label completado">Actividad</span>
+        <span class="paso-label completado">Horario</span>
+        <span class="paso-label completado">Visitantes</span>
+        <span class="paso-label activo">Confirmar</span>
+      </div>
+      <div class="barra-progreso">
+        <div class="barra-fill" style="width: 100%"></div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="paso-titulo">Términos y confirmación</h2>
+      <p class="paso-subtitulo">Revisá los términos específicos de la actividad antes de confirmar.</p>
+
+      <div class="terminos-box" id="terminos-contenido"></div>
+
+      <label class="checkbox-wrapper" id="checkbox-wrapper">
+        <input type="checkbox" id="acepta-terminos" />
+        <span class="checkbox-texto">Acepto los términos y condiciones específicos de la actividad en la que participaré.</span>
+      </label>
+
+      <div class="alerta" id="error-4">⚠️ <span></span></div>
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-atras">← Volver</button>
+        <button class="btn btn-primario" id="btn-confirmar">
+          <span id="btn-confirmar-texto">Confirmar inscripción ✓</span>
+          <span class="spinner" id="spinner" style="display:none"></span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const TERMINOS = {
+      'Tirolesa': '<strong>Tirolesa:</strong> Los participantes deben pesar entre 30 y 120 kg. Es obligatorio el uso del equipo de seguridad provisto. El talle de vestimenta es necesario para ajustar el arnés correctamente. No se permite la participación a personas con problemas cardíacos o vértigo severo.',
+      'Safari': '<strong>Safari:</strong> Mantené silencio y tranquilidad durante el recorrido. Prohibido alimentar o acercarse a los animales. Seguir en todo momento las instrucciones del guía. El parque no se responsabiliza por objetos personales perdidos.',
+      'Palestra': '<strong>Palestra:</strong> Es obligatorio el uso de calzado deportivo y el equipo provisto por el parque. El talle de vestimenta es necesario para el equipamiento. Menores de 12 años deben estar acompañados por un adulto. Informar al instructor sobre lesiones previas.',
+      'Jardinería': '<strong>Jardinería:</strong> Las plantas y semillas son propiedad del parque y no pueden retirarse sin autorización. Usar los guantes proporcionados al manipular herramientas. El parque provee todos los materiales necesarios. Actividad apta para todas las edades.',
+    };
+
+    function getState() {
+      try { return JSON.parse(localStorage.getItem('ecoState') || '{}'); } catch { return {}; }
+    }
+    function setState(updates) {
+      const s = getState();
+      localStorage.setItem('ecoState', JSON.stringify({ ...s, ...updates }));
+    }
+
+    const state = getState();
+    if (!state.actividadSeleccionada || !state.horarioSeleccionado || !state.visitantes?.length) {
+      window.location.href = 'index.html';
+    }
+
+    document.getElementById('terminos-contenido').innerHTML =
+      TERMINOS[state.actividadSeleccionada] || 'Seguir las instrucciones del personal del parque en todo momento.';
+
+    function mostrarError(msg) {
+      const el = document.getElementById('error-4');
+      el.querySelector('span').textContent = msg;
+      el.classList.add('visible');
+      setTimeout(() => el.classList.remove('visible'), 5000);
+    }
+
+    document.getElementById('acepta-terminos').addEventListener('change', function () {
+      document.getElementById('checkbox-wrapper').classList.toggle('marcado', this.checked);
+    });
+
+    document.getElementById('btn-atras').addEventListener('click', () => {
+      window.location.href = 'paso3.html';
+    });
+
+    document.getElementById('btn-confirmar').addEventListener('click', async () => {
+      const acepta = document.getElementById('acepta-terminos').checked;
+      if (!acepta) {
+        mostrarError('Debés aceptar los términos y condiciones para continuar.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-confirmar');
+      btn.disabled = true;
+      document.getElementById('btn-confirmar-texto').style.display = 'none';
+      document.getElementById('spinner').style.display = 'inline-block';
+
+      try {
+        const res = await fetch('/api/inscripciones', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitud: {
+              actividad: state.actividadSeleccionada,
+              horarioId: state.horarioSeleccionado.id,
+              visitantes: state.visitantes,
+              aceptaTerminos: true,
+            },
+            email: state.email,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          mostrarError(data.error || 'Error al procesar la inscripción.');
+          btn.disabled = false;
+          document.getElementById('btn-confirmar-texto').style.display = 'inline';
+          document.getElementById('spinner').style.display = 'none';
+          return;
+        }
+
+        setState({ inscripcion: data.inscripcion });
+        window.location.href = 'exito.html';
+
+      } catch {
+        mostrarError('Error de conexión con el servidor.');
+        btn.disabled = false;
+        document.getElementById('btn-confirmar-texto').style.display = 'inline';
+        document.getElementById('spinner').style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

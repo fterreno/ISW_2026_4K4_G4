@@ -7,7 +7,7 @@ import {
   Horario,
   Inscripcion,
   SolicitudInscripcion,
-} from "./models";
+} from "../entity/models";
 
 export class ServicioInscripcion {
   constructor(
@@ -19,13 +19,13 @@ export class ServicioInscripcion {
 
   obtenerActividadesDisponibles(): ActividadNombre[] {
     return this.actividades.map((a) => a.nombre);
-    
+
   }
 
   obtenerHorariosDisponibles(nombreActividad: ActividadNombre): Horario[] {
     const actividad = this.buscarActividad(nombreActividad);
     return actividad.horarios.filter(this.esHorarioDisponible);
-    
+
   }
 
   // ── Caso de uso principal ────────────────────────────────────────────────────

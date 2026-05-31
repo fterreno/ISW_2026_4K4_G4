@@ -1,25 +1,23 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
-import { ServicioInscripcion } from "./servicioInscripcion";
-import { EmailServiceConsola } from "./EmailServiceConsola";
-import { actividadesEnMemoria } from "./datos";
+import { ServicioInscripcion } from "./control/servicioInscripcion";
+import { EmailServiceConsola } from "./boundary/EmailServiceConsola";
+import { actividadesEnMemoria } from "./persistence/datos";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "boundary")));
 
 const emailService = new EmailServiceConsola();
 const servicio = new ServicioInscripcion(actividadesEnMemoria, emailService);
 
-// ── GET /api/actividades ─────────────────────────────────────────────────────
 app.get("/api/actividades", (_req, res) => {
   const nombres = servicio.obtenerActividadesDisponibles();
   res.json({ actividades: nombres });
 });
 
-// ── GET /api/actividades/:nombre/horarios ────────────────────────────────────
 app.get("/api/actividades/:nombre/horarios", (req, res) => {
   try {
     const nombre = req.params["nombre"] as any;
@@ -30,7 +28,6 @@ app.get("/api/actividades/:nombre/horarios", (req, res) => {
   }
 });
 
-// ── POST /api/inscripciones ──────────────────────────────────────────────────
 app.post("/api/inscripciones", (req, res) => {
   try {
     const { solicitud, email } = req.body;
