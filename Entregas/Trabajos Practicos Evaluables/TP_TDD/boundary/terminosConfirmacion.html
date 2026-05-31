@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHarmony Park — Confirmar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <eco-header></eco-header>
+
+  <div class="contenedor">
+
+    <div class="progreso-wrapper">
+      <div class="pasos-labels">
+        <span class="paso-label completado">Actividad</span>
+        <span class="paso-label completado">Horario</span>
+        <span class="paso-label completado">Visitantes</span>
+        <span class="paso-label activo">Confirmar</span>
+      </div>
+      <div class="barra-progreso">
+        <div class="barra-fill" style="width: 100%"></div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="paso-titulo">Términos y confirmación</h2>
+      <p class="paso-subtitulo">Revisá los términos específicos de la actividad antes de confirmar.</p>
+
+      <div class="terminos-box" id="terminos-contenido"></div>
+
+      <label class="checkbox-wrapper" id="checkbox-wrapper">
+        <input type="checkbox" id="acepta-terminos" />
+        <span class="checkbox-texto">Acepto los términos y condiciones específicos de la actividad en la que participaré.</span>
+      </label>
+
+      <div class="alerta" id="error-4"><span></span></div>
+
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-atras">← Volver</button>
+        <button class="btn btn-primario"   id="btn-confirmar">
+          <span id="btn-confirmar-texto">Confirmar inscripción</span>
+          <span class="spinner" id="spinner" style="display:none"></span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script src="terminosConfirmacion.js"></script>
+</body>
+</html>

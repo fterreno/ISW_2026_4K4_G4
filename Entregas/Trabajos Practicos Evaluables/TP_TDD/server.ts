@@ -4,6 +4,7 @@ import path from "path";
 import { ServicioInscripcion } from "./control/servicioInscripcion";
 import { EmailServiceConsola } from "./boundary/EmailServiceConsola";
 import { actividadesEnMemoria } from "./persistence/datos";
+import { ACTIVIDADES_CON_TALLE } from "./entity/models";
 
 const app = express();
 app.use(cors());
@@ -15,7 +16,11 @@ const servicio = new ServicioInscripcion(actividadesEnMemoria, emailService);
 
 app.get("/api/actividades", (_req, res) => {
   const nombres = servicio.obtenerActividadesDisponibles();
-  res.json({ actividades: nombres });
+  const actividades = nombres.map(nombre => ({
+    nombre,
+    requiereTalle: ACTIVIDADES_CON_TALLE.includes(nombre),
+  }));
+  res.json({ actividades });
 });
 
 app.get("/api/actividades/:nombre/horarios", (req, res) => {
