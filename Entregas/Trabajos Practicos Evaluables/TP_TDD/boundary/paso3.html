@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHarmony Park — Visitantes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <span class="logo-icon">🌿</span>
+    <h1>EcoHarmony Park</h1>
+    <p>Sistema de inscripción a actividades</p>
+  </header>
+
+  <div class="contenedor">
+
+    <div class="progreso-wrapper">
+      <div class="pasos-labels">
+        <span class="paso-label completado">Actividad</span>
+        <span class="paso-label completado">Horario</span>
+        <span class="paso-label activo">Visitantes</span>
+        <span class="paso-label">Confirmar</span>
+      </div>
+      <div class="barra-progreso">
+        <div class="barra-fill" style="width: 75%"></div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="paso-titulo">Datos de los visitantes</h2>
+      <p class="paso-subtitulo">Indicá cuántas personas participarán y sus datos.</p>
+
+      <div class="campo">
+        <label>Cantidad de personas</label>
+        <div class="counter-wrapper">
+          <button class="btn-counter" id="btn-menos" disabled>−</button>
+          <span class="counter-numero" id="cantidad-display">1</span>
+          <button class="btn-counter" id="btn-mas">+</button>
+        </div>
+      </div>
+
+      <div id="formulario-visitantes"></div>
+
+      <div class="campo campo-email">
+        <label>Email para confirmación</label>
+        <input type="email" id="input-email" placeholder="tu@email.com" />
+      </div>
+
+      <div class="alerta" id="error-3">⚠️ <span></span></div>
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-atras">← Volver</button>
+        <button class="btn btn-primario" id="btn-siguiente">Continuar →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function getState() {
+      try { return JSON.parse(localStorage.getItem('ecoState') || '{}'); } catch { return {}; }
+    }
+    function setState(updates) {
+      const s = getState();
+      localStorage.setItem('ecoState', JSON.stringify({ ...s, ...updates }));
+    }
+
+    const state = getState();
+    if (!state.actividadSeleccionada || !state.horarioSeleccionado) {
+      window.location.href = 'index.html';
+    }
+
+    const maxCupos = state.horarioSeleccionado?.cuposDisponibles || 10;
+    let cantidadVisitantes = state.cantidadVisitantes || 1;
+
+    function mostrarError(msg) {
+      const el = document.getElementById('error-3');
+      el.querySelector('span').textContent = msg;
+      el.classList.add('visible');
+      setTimeout(() => el.classList.remove('visible'), 5000);
+    }
+
+    function renderizarFormularioVisitantes() {
+      const container = document.getElementById('formulario-visitantes');
+      const savedVisitantes = getState().visitantes || [];
+      container.innerHTML = '';
+
+      for (let i = 0; i < cantidadVisitantes; i++) {
+        const saved = savedVisitantes[i] || {};
+        const card = document.createElement('div');
+        card.className = 'visitante-card';
+        card.innerHTML = `
+          <div class="visitante-titulo">
+            <span class="visitante-numero">${i + 1}</span>
+            Visitante ${i + 1}
+          </div>
+          <div class="campo">
+            <label>Nombre completo</label>
+            <input type="text" id="v${i}-nombre" placeholder="Ej: Juan Pérez" value="${saved.nombre || ''}" />
+          </div>
+          <div class="grid-2">
+            <div class="campo">
+              <label>DNI</label>
+              <input type="text" id="v${i}-dni" placeholder="Ej: 35123456" value="${saved.dni || ''}" />
+            </div>
+            <div class="campo">
+              <label>Edad</label>
+              <input type="number" id="v${i}-edad" placeholder="Ej: 28" min="1" max="120" value="${saved.edad || ''}" />
+            </div>
+          </div>
+          ${state.requiereTalle ? `
+          <div class="campo">
+            <label>Talle de vestimenta</label>
+            <select id="v${i}-talle">
+              <option value="">Seleccioná un talle</option>
+              ${['XS','S','M','L','XL','XXL'].map(t => `<option value="${t}" ${saved.talle === t ? 'selected' : ''}>${t}</option>`).join('')}
+            </select>
+          </div>` : ''}
+        `;
+        container.appendChild(card);
+      }
+
+      document.getElementById('cantidad-display').textContent = cantidadVisitantes;
+      document.getElementById('btn-menos').disabled = cantidadVisitantes <= 1;
+      document.getElementById('btn-mas').disabled = cantidadVisitantes >= maxCupos;
+    }
+
+    document.getElementById('btn-menos').addEventListener('click', () => {
+      if (cantidadVisitantes > 1) { cantidadVisitantes--; renderizarFormularioVisitantes(); }
+    });
+
+    document.getElementById('btn-mas').addEventListener('click', () => {
+      if (cantidadVisitantes < maxCupos) { cantidadVisitantes++; renderizarFormularioVisitantes(); }
+    });
+
+    document.getElementById('btn-atras').addEventListener('click', () => {
+      window.location.href = 'paso2.html';
+    });
+
+    document.getElementById('btn-siguiente').addEventListener('click', () => {
+      const visitantes = [];
+      let valido = true;
+
+      for (let i = 0; i < cantidadVisitantes; i++) {
+        const nombre = document.getElementById(`v${i}-nombre`)?.value.trim();
+        const dni = document.getElementById(`v${i}-dni`)?.value.trim();
+        const edadRaw = document.getElementById(`v${i}-edad`)?.value.trim();
+        const edad = parseInt(edadRaw);
+        const talleEl = document.getElementById(`v${i}-talle`);
+        const talle = talleEl ? talleEl.value : undefined;
+        const n = i + 1;
+
+        if (!nombre) { mostrarError(`El nombre del visitante ${n} es obligatorio.`); valido = false; break; }
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(nombre)) { mostrarError(`El nombre del visitante ${n} solo puede contener letras y espacios.`); valido = false; break; }
+        if (nombre.length > 30) { mostrarError(`El nombre del visitante ${n} no puede superar los 30 caracteres.`); valido = false; break; }
+        if (!dni) { mostrarError(`El DNI del visitante ${n} es obligatorio.`); valido = false; break; }
+        if (!/^\d{7,8}$/.test(dni)) { mostrarError(`El DNI del visitante ${n} debe tener entre 7 y 8 dígitos numéricos.`); valido = false; break; }
+        if (!edadRaw) { mostrarError(`La edad del visitante ${n} es obligatoria.`); valido = false; break; }
+        if (isNaN(edad) || edad < 1 || edad > 120) { mostrarError(`La edad del visitante ${n} debe estar entre 1 y 120 años.`); valido = false; break; }
+        if (state.requiereTalle && !talle) { mostrarError(`Seleccioná el talle del visitante ${n}.`); valido = false; break; }
+
+        const v = { nombre, dni, edad };
+        if (talle) v.talle = talle;
+        visitantes.push(v);
+      }
+
+      if (!valido) return;
+
+      const email = document.getElementById('input-email').value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        mostrarError('Ingresá un email válido (ej: nombre@dominio.com).');
+        return;
+      }
+
+      setState({ visitantes, email, cantidadVisitantes });
+      window.location.href = 'paso4.html';
+    });
+
+    const emailEl = document.getElementById('input-email');
+    if (emailEl && state.email) emailEl.value = state.email;
+
+    renderizarFormularioVisitantes();
+  </script>
+
+</body>
+</html>

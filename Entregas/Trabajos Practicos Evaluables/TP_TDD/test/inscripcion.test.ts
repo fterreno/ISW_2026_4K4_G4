@@ -1,11 +1,11 @@
-import { ServicioInscripcion } from "./servicioInscripcion";
+import { ServicioInscripcion } from "../control/servicioInscripcion";
 import {
   Actividad,
   DatosVisitante,
   EmailService,
   Inscripcion,
   SolicitudInscripcion,
-} from "./models";
+} from "../entity/models";
 
 // ─── Datos de prueba ──────────────────────────────────────────────────────────
 

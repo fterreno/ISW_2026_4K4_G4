@@ -1,4 +1,4 @@
-import { EmailService, Inscripcion } from "./models";
+import { EmailService, Inscripcion } from "../entity/models";
 
 export class EmailServiceConsola implements EmailService {
   enviarConfirmacion(inscripcion: Inscripcion, emailDestino: string): void {
