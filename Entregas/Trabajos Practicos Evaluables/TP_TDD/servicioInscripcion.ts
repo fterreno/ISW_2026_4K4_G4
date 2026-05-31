@@ -66,6 +66,12 @@ export class ServicioInscripcion {
       if (!v.nombre || !v.dni || v.edad == null) {
         throw new Error("Los datos del visitante son incompletos");
       }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(v.nombre)) {
+        throw new Error("El nombre solo puede contener letras y espacios");
+      }
+      if (!/^\d{7,8}$/.test(v.dni)) {
+        throw new Error("El DNI debe contener entre 7 y 8 dígitos numéricos");
+      }
     }
   }
 
@@ -105,6 +111,8 @@ export class ServicioInscripcion {
     const actividad = this.buscarActividad(solicitud.actividad);
     const horario = this.buscarHorario(actividad, solicitud.horarioId);
 
+    horario.cuposDisponibles -= solicitud.visitantes.length;
+
     return {
       id: this.generarId(),
       actividad: solicitud.actividad,
@@ -138,4 +146,3 @@ export class ServicioInscripcion {
       .toUpperCase()}`;
   }
 }
-
