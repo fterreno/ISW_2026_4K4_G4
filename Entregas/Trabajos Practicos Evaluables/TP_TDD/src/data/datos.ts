@@ -1,4 +1,4 @@
-import { Actividad } from "./models";
+import { Actividad } from "../models/models";
 
 export const actividadesEnMemoria: Actividad[] = [
   {

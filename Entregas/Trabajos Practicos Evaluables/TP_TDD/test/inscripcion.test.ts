@@ -1,11 +1,10 @@
-import { ServicioInscripcion } from "./servicioInscripcion";
+import { ServicioInscripcion } from "../src/services/servicioInscripcion";
 import {
   Actividad,
   DatosVisitante,
   EmailService,
-  Inscripcion,
   SolicitudInscripcion,
-} from "./models";
+} from "../src/models/models";
 
 // ─── Datos de prueba ──────────────────────────────────────────────────────────
 
@@ -65,14 +64,18 @@ beforeEach(() => {
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 describe("US5 - Inscribirse a una actividad", () => {
-
   // ── Criterio 1: selección de actividad ──────────────────────────────────────
 
   describe("Selección de actividad", () => {
     it("debe listar las cuatro actividades disponibles", () => {
       const nombres = servicio.obtenerActividadesDisponibles();
       expect(nombres).toEqual(
-        expect.arrayContaining(["Tirolesa", "Safari", "Palestra", "Jardinería"])
+        expect.arrayContaining([
+          "Tirolesa",
+          "Safari",
+          "Palestra",
+          "Jardinería",
+        ]),
       );
       expect(nombres).toHaveLength(4);
     });
@@ -88,9 +91,9 @@ describe("US5 - Inscribirse a una actividad", () => {
     });
 
     it("debe lanzar error si la actividad no existe", () => {
-      expect(() =>
-        servicio.obtenerHorariosDisponibles("Buceo" as any)
-      ).toThrow("Actividad no encontrada");
+      expect(() => servicio.obtenerHorariosDisponibles("Buceo" as any)).toThrow(
+        "Actividad no encontrada",
+      );
     });
   });
 
@@ -131,7 +134,10 @@ describe("US5 - Inscribirse a una actividad", () => {
       const solicitud: SolicitudInscripcion = {
         actividad: "Tirolesa",
         horarioId: "T1",
-        visitantes: [visitanteValido, { ...visitanteValido, nombre: "María", dni: "41000001" }],
+        visitantes: [
+          visitanteValido,
+          { ...visitanteValido, nombre: "María", dni: "41000001" },
+        ],
         aceptaTerminos: true,
       };
 
@@ -156,7 +162,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       expect(emailServiceMock.enviarConfirmacion).toHaveBeenCalledTimes(1);
       expect(emailServiceMock.enviarConfirmacion).toHaveBeenCalledWith(
         expect.objectContaining({ actividad: "Safari" }),
-        "ana@mail.com"
+        "ana@mail.com",
       );
     });
   });
@@ -173,7 +179,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "juan@mail.com")).toThrow(
-        "No hay cupos disponibles para el horario seleccionado"
+        "No hay cupos disponibles para el horario seleccionado",
       );
     });
 
@@ -186,7 +192,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "juan@mail.com")).toThrow(
-        "El parque está cerrado o la actividad no está disponible en ese horario"
+        "El parque está cerrado o la actividad no está disponible en ese horario",
       );
     });
 
@@ -199,18 +205,20 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "juan@mail.com")).toThrow(
-        "Horario no encontrado"
+        "Horario no encontrado",
       );
     });
 
     it("FALLA: cantidad de visitantes supera los cupos disponibles", () => {
       // T1 tiene 5 cupos
-      const visitantes: DatosVisitante[] = Array.from({ length: 6 }, (_, i) => ({
-        nombre: `Visitante ${i}`,
-        dni: `3500000${i}`,
-        edad: 25,
-        talle: "M",
-      }));
+      const visitantes: DatosVisitante[] = [
+        { nombre: "Ana Lopez", dni: "35000001", edad: 25, talle: "M" },
+        { nombre: "Juan Perez", dni: "35000002", edad: 25, talle: "M" },
+        { nombre: "Maria Garcia", dni: "35000003", edad: 25, talle: "M" },
+        { nombre: "Carlos Ruiz", dni: "35000004", edad: 25, talle: "M" },
+        { nombre: "Laura Diaz", dni: "35000005", edad: 25, talle: "M" },
+        { nombre: "Pedro Gomez", dni: "35000006", edad: 25, talle: "M" },
+      ];
 
       const solicitud: SolicitudInscripcion = {
         actividad: "Tirolesa",
@@ -220,7 +228,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "juan@mail.com")).toThrow(
-        "No hay cupos disponibles para el horario seleccionado"
+        "No hay cupos disponibles para el horario seleccionado",
       );
     });
   });
@@ -237,7 +245,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "ana@mail.com")).toThrow(
-        "Debe aceptar los términos y condiciones de la actividad"
+        "Debe aceptar los términos y condiciones de la actividad",
       );
     });
   });
@@ -254,7 +262,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "juan@mail.com")).toThrow(
-        "El talle de vestimenta es requerido para esta actividad"
+        "El talle de vestimenta es requerido para esta actividad",
       );
     });
 
@@ -267,7 +275,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "juan@mail.com")).toThrow(
-        "El talle de vestimenta es requerido para esta actividad"
+        "El talle de vestimenta es requerido para esta actividad",
       );
     });
 
@@ -295,7 +303,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "test@mail.com")).toThrow(
-        "Los datos del visitante son incompletos"
+        "Los datos del visitante son incompletos",
       );
     });
 
@@ -308,7 +316,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "test@mail.com")).toThrow(
-        "Los datos del visitante son incompletos"
+        "Los datos del visitante son incompletos",
       );
     });
 
@@ -321,7 +329,7 @@ describe("US5 - Inscribirse a una actividad", () => {
       };
 
       expect(() => servicio.inscribir(solicitud, "test@mail.com")).toThrow(
-        "Debe indicar al menos un visitante"
+        "Debe indicar al menos un visitante",
       );
     });
   });

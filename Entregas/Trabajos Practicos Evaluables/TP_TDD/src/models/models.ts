@@ -1,6 +1,9 @@
 export type ActividadNombre = "Tirolesa" | "Safari" | "Palestra" | "Jardinería";
 
-export const ACTIVIDADES_CON_TALLE: ActividadNombre[] = ["Tirolesa", "Palestra"];
+export const ACTIVIDADES_CON_TALLE: ActividadNombre[] = [
+  "Tirolesa",
+  "Palestra",
+];
 
 export interface Horario {
   id: string;

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoHarmony Park — Inscripciones</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <span class="logo-icon">🌿</span>
+      <h1>EcoHarmony Park</h1>
+      <p>Sistema de inscripción a actividades</p>
+    </header>
+
+    <div class="contenedor">
+      <!-- Progreso -->
+      <div class="progreso-wrapper">
+        <div class="pasos-labels">
+          <span class="paso-label" id="lbl-1">Actividad</span>
+          <span class="paso-label" id="lbl-2">Horario</span>
+          <span class="paso-label" id="lbl-3">Visitantes</span>
+          <span class="paso-label" id="lbl-4">Confirmar</span>
+        </div>
+        <div class="barra-progreso">
+          <div class="barra-fill" id="barra" style="width: 25%"></div>
+        </div>
+      </div>
+
+      <!-- PASO 1: Actividad -->
+      <div class="tarjeta" id="paso-1">
+        <h2 class="paso-titulo">¿Qué actividad elegís?</h2>
+        <p class="paso-subtitulo">
+          Seleccioná una de las experiencias disponibles en el parque.
+        </p>
+        <div class="grid-actividades" id="grid-actividades">
+          <p style="color: #aaa; font-size: 0.85rem">Cargando actividades...</p>
+        </div>
+        <div class="alerta" id="error-1">⚠️ <span></span></div>
+        <div class="nav-botones">
+          <button class="btn btn-primario" id="btn-1-siguiente">
+            Continuar →
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Horario -->
+      <div class="tarjeta" id="paso-2" style="display: none">
+        <h2 class="paso-titulo">Elegí un horario</h2>
+        <p class="paso-subtitulo" id="subtitulo-horario">
+          Horarios disponibles para la actividad seleccionada.
+        </p>
+        <div class="grid-horarios" id="grid-horarios"></div>
+        <div class="alerta" id="error-2">⚠️ <span></span></div>
+        <div class="nav-botones">
+          <button class="btn btn-secundario" id="btn-2-atras">← Volver</button>
+          <button class="btn btn-primario" id="btn-2-siguiente">
+            Continuar →
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Visitantes -->
+      <div class="tarjeta" id="paso-3" style="display: none">
+        <h2 class="paso-titulo">Datos de los visitantes</h2>
+        <p class="paso-subtitulo">
+          Indicá cuántas personas participarán y sus datos.
+        </p>
+
+        <div class="campo">
+          <label>Cantidad de personas</label>
+          <div class="counter-wrapper">
+            <button class="btn-counter" id="btn-menos" disabled>−</button>
+            <span class="counter-numero" id="cantidad-display">1</span>
+            <button class="btn-counter" id="btn-mas">+</button>
+          </div>
+        </div>
+
+        <div id="formulario-visitantes"></div>
+
+        <div class="campo campo-email">
+          <label>Email para confirmación</label>
+          <input type="email" id="input-email" placeholder="tu@email.com" />
+        </div>
+
+        <div class="alerta" id="error-3">⚠️ <span></span></div>
+        <div class="nav-botones">
+          <button class="btn btn-secundario" id="btn-3-atras">← Volver</button>
+          <button class="btn btn-primario" id="btn-3-siguiente">
+            Continuar →
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: Términos y confirmación -->
+      <div class="tarjeta" id="paso-4" style="display: none">
+        <h2 class="paso-titulo">Términos y confirmación</h2>
+        <p class="paso-subtitulo">
+          Revisá los términos específicos de la actividad antes de confirmar.
+        </p>
+
+        <div class="terminos-box" id="terminos-contenido"></div>
+
+        <label class="checkbox-wrapper" id="checkbox-wrapper">
+          <input type="checkbox" id="acepta-terminos" />
+          <span class="checkbox-texto"
+            >Acepto los términos y condiciones específicos de la actividad en la
+            que participaré.</span
+          >
+        </label>
+
+        <div class="alerta" id="error-4">⚠️ <span></span></div>
+        <div class="nav-botones">
+          <button class="btn btn-secundario" id="btn-4-atras">← Volver</button>
+          <button class="btn btn-primario" id="btn-4-confirmar">
+            <span id="btn-confirmar-texto">Confirmar inscripción ✓</span>
+            <span class="spinner" id="spinner" style="display: none"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ÉXITO -->
+      <div class="tarjeta" id="paso-exito" style="display: none">
+        <div class="exito-wrapper">
+          <span class="exito-icono">🎉</span>
+          <h2 class="exito-titulo">¡Inscripción exitosa!</h2>
+          <p class="exito-subtitulo">
+            Te enviamos un email de confirmación con todos los detalles de tu
+            reserva.
+          </p>
+          <div class="exito-detalle" id="exito-detalle"></div>
+          <p class="exito-id" id="exito-id"></p>
+          <button class="btn-nueva" id="btn-nueva-inscripcion">
+            Hacer otra inscripción
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

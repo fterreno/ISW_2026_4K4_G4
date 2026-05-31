@@ -7,31 +7,32 @@ import {
   Horario,
   Inscripcion,
   SolicitudInscripcion,
-} from "./models";
+} from "../models/models";
 
 export class ServicioInscripcion {
   constructor(
     private readonly actividades: Actividad[],
-    private readonly emailService: EmailService
+    private readonly emailService: EmailService,
   ) {}
 
   // ── Consultas públicas ───────────────────────────────────────────────────────
 
   obtenerActividadesDisponibles(): ActividadNombre[] {
     return this.actividades.map((a) => a.nombre);
-    
   }
 
   obtenerHorariosDisponibles(nombreActividad: ActividadNombre): Horario[] {
     const actividad = this.buscarActividad(nombreActividad);
     return actividad.horarios.filter(this.esHorarioDisponible);
-    
   }
 
   // ── Caso de uso principal ────────────────────────────────────────────────────
 
-  inscribir(solicitud: SolicitudInscripcion, emailDestino: string): Inscripcion {
-   this.validar(solicitud);
+  inscribir(
+    solicitud: SolicitudInscripcion,
+    emailDestino: string,
+  ): Inscripcion {
+    this.validar(solicitud);
 
     const inscripcion = this.crearInscripcion(solicitud);
     this.emailService.enviarConfirmacion(inscripcion, emailDestino);
@@ -54,7 +55,9 @@ export class ServicioInscripcion {
 
   private validarTerminos(aceptaTerminos: boolean): void {
     if (!aceptaTerminos) {
-      throw new Error("Debe aceptar los términos y condiciones de la actividad");
+      throw new Error(
+        "Debe aceptar los términos y condiciones de la actividad",
+      );
     }
   }
 
@@ -77,30 +80,28 @@ export class ServicioInscripcion {
 
   private validarDisponibilidadHorario(
     horario: Horario,
-    cantidadVisitantes: number
+    cantidadVisitantes: number,
   ): void {
     if (!horario.parqueAbierto) {
       throw new Error(
-        "El parque está cerrado o la actividad no está disponible en ese horario"
+        "El parque está cerrado o la actividad no está disponible en ese horario",
       );
     }
     if (horario.cuposDisponibles < cantidadVisitantes) {
-      throw new Error(
-        "No hay cupos disponibles para el horario seleccionado"
-      );
+      throw new Error("No hay cupos disponibles para el horario seleccionado");
     }
   }
 
   private validarTallesSegunActividad(
     nombreActividad: ActividadNombre,
-    visitantes: DatosVisitante[]
+    visitantes: DatosVisitante[],
   ): void {
     if (!ACTIVIDADES_CON_TALLE.includes(nombreActividad)) return;
 
     const sinTalle = visitantes.find((v) => !v.talle);
     if (sinTalle) {
       throw new Error(
-        "El talle de vestimenta es requerido para esta actividad"
+        "El talle de vestimenta es requerido para esta actividad",
       );
     }
   }
@@ -140,9 +141,6 @@ export class ServicioInscripcion {
     horario.cuposDisponibles > 0 && horario.parqueAbierto;
 
   private generarId(): string {
-    return `INS-${Date.now()}-${Math.random()
-      .toString(36)
-      .substring(2, 7)
-      .toUpperCase()}`;
+    return `INS-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
   }
 }

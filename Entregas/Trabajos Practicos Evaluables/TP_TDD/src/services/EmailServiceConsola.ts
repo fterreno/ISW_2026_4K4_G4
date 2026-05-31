@@ -1,4 +1,4 @@
-import { EmailService, Inscripcion } from "./models";
+import { EmailService, Inscripcion } from "../models/models";
 
 export class EmailServiceConsola implements EmailService {
   enviarConfirmacion(inscripcion: Inscripcion, emailDestino: string): void {
@@ -12,7 +12,7 @@ export class EmailServiceConsola implements EmailService {
       console.log(
         `  ${i + 1}. ${v.nombre} — DNI: ${v.dni} — Edad: ${v.edad}${
           v.talle ? ` — Talle: ${v.talle}` : ""
-        }`
+        }`,
       );
     });
     console.log(`ID Inscripción: ${inscripcion.id}`);
