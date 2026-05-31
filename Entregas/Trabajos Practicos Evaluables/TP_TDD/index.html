@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHarmony Park — Inscripciones</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ─────────────────────────────────────────────── */
+    :root {
+      --verde-oscuro: #1a3325;
+      --verde-medio: #2d5a3d;
+      --verde-claro: #4a8c5c;
+      --verde-suave: #a8d5b5;
+      --crema: #f5f0e8;
+      --tierra: #c4956a;
+      --tierra-claro: #e8c9a0;
+      --blanco: #fdfaf5;
+      --texto: #1a2e22;
+      --texto-suave: #5a7a65;
+      --error: #c0392b;
+      --error-claro: #fdecea;
+      --sombra: 0 4px 24px rgba(26,51,37,0.12);
+      --radio: 16px;
+      --transicion: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--verde-oscuro);
+      color: var(--texto);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(74,140,92,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(196,149,106,0.1) 0%, transparent 50%);
+    }
+
+    /* ── Header ────────────────────────────────────────────────── */
+    header {
+      width: 100%;
+      text-align: center;
+      padding: 48px 24px 32px;
+      color: var(--crema);
+    }
+
+    .logo-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 12px;
+      animation: flotar 3s ease-in-out infinite;
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--crema);
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: var(--verde-suave);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Contenedor principal ───────────────────────────────────── */
+    .contenedor {
+      width: 100%;
+      max-width: 620px;
+      padding: 0 20px 60px;
+    }
+
+    /* ── Barra de progreso ──────────────────────────────────────── */
+    .progreso-wrapper {
+      margin-bottom: 28px;
+    }
+
+    .pasos-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .paso-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--verde-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      opacity: 0.5;
+      transition: var(--transicion);
+    }
+
+    .paso-label.activo { opacity: 1; color: var(--tierra-claro); }
+    .paso-label.completado { opacity: 0.8; color: var(--verde-suave); }
+
+    .barra-progreso {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .barra-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--verde-claro), var(--tierra));
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Tarjeta de paso ────────────────────────────────────────── */
+    .tarjeta {
+      background: var(--blanco);
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+      padding: 36px;
+      animation: entrar 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    @keyframes entrar {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .paso-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 6px;
+    }
+
+    .paso-subtitulo {
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    /* ── Grid de actividades ────────────────────────────────────── */
+    .grid-actividades {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card-actividad {
+      border: 2px solid #e8e0d4;
+      border-radius: 12px;
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: var(--transicion);
+      text-align: center;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-actividad::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--verde-claro), var(--verde-oscuro));
+      opacity: 0;
+      transition: var(--transicion);
+    }
+
+    .card-actividad:hover { border-color: var(--verde-claro); transform: translateY(-2px); }
+    .card-actividad.seleccionada { border-color: var(--verde-claro); background: var(--verde-oscuro); }
+    .card-actividad.seleccionada::before { opacity: 1; }
+
+    .card-actividad .icono {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-actividad .nombre {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--texto);
+      position: relative;
+      z-index: 1;
+      transition: color var(--transicion);
+    }
+
+    .card-actividad.seleccionada .nombre { color: var(--crema); }
+
+    .badge-talle {
+      display: inline-block;
+      font-size: 0.65rem;
+      background: var(--tierra-claro);
+      color: var(--tierra);
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+      font-weight: 500;
+    }
+
+    .card-actividad.seleccionada .badge-talle { background: rgba(255,255,255,0.2); color: var(--crema); }
+
+    /* ── Grid de horarios ───────────────────────────────────────── */
+    .grid-horarios {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .card-horario {
+      border: 2px solid #e8e0d4;
+      border-radius: 10px;
+      padding: 14px 10px;
+      cursor: pointer;
+      transition: var(--transicion);
+      text-align: center;
+      background: white;
+    }
+
+    .card-horario:hover { border-color: var(--verde-claro); }
+    .card-horario.seleccionado { border-color: var(--verde-claro); background: var(--verde-oscuro); color: var(--crema); }
+
+    .card-horario .hora {
+      font-size: 1.1rem;
+      font-weight: 500;
+      display: block;
+    }
+
+    .card-horario .cupos {
+      font-size: 0.72rem;
+      opacity: 0.65;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── Campos de formulario ───────────────────────────────────── */
+    .campo {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e8e0d4;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--texto);
+      background: white;
+      transition: border-color var(--transicion);
+      outline: none;
+    }
+
+    input:focus, select:focus { border-color: var(--verde-claro); }
+    input.invalido { border-color: var(--error); background: var(--error-claro); }
+
+    /* ── Counter de visitantes ──────────────────────────────────── */
+    .counter-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-counter {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--verde-claro);
+      background: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--verde-oscuro);
+      transition: var(--transicion);
+      flex-shrink: 0;
+    }
+
+    .btn-counter:hover { background: var(--verde-oscuro); color: white; border-color: var(--verde-oscuro); }
+    .btn-counter:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .counter-numero {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--verde-oscuro);
+      font-family: 'Playfair Display', serif;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    /* ── Visitante card ─────────────────────────────────────────── */
+    .visitante-card {
+      border: 2px solid #e8e0d4;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      background: #fafaf7;
+      animation: entrar 0.3s ease;
+    }
+
+    .visitante-titulo {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .visitante-numero {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--verde-oscuro);
+      color: white;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ── Email ──────────────────────────────────────────────────── */
+    .campo-email { margin-top: 24px; padding-top: 24px; border-top: 1px solid #e8e0d4; }
+
+    /* ── Términos ───────────────────────────────────────────────── */
+    .terminos-box {
+      background: #f0f7f2;
+      border: 1px solid var(--verde-suave);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: var(--texto-suave);
+      line-height: 1.6;
+    }
+
+    .terminos-box strong { color: var(--verde-oscuro); }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      padding: 14px;
+      border: 2px solid #e8e0d4;
+      border-radius: 10px;
+      transition: var(--transicion);
+    }
+
+    .checkbox-wrapper:hover { border-color: var(--verde-claro); }
+    .checkbox-wrapper.marcado { border-color: var(--verde-claro); background: #f0f7f2; }
+
+    .checkbox-wrapper input[type="checkbox"] {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: var(--verde-claro);
+    }
+
+    .checkbox-texto {
+      font-size: 0.88rem;
+      color: var(--texto);
+      line-height: 1.5;
+    }
+
+    /* ── Botones de navegación ──────────────────────────────────── */
+    .nav-botones {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 28px;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: var(--transicion);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secundario {
+      background: transparent;
+      border: 2px solid #e8e0d4;
+      color: var(--texto-suave);
+    }
+
+    .btn-secundario:hover { border-color: var(--verde-claro); color: var(--verde-oscuro); }
+
+    .btn-primario {
+      background: var(--verde-oscuro);
+      color: var(--crema);
+      flex: 1;
+      justify-content: center;
+    }
+
+    .btn-primario:hover { background: var(--verde-medio); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,51,37,0.3); }
+    .btn-primario:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── Alerta de error ────────────────────────────────────────── */
+    .alerta {
+      display: none;
+      background: var(--error-claro);
+      border: 1px solid var(--error);
+      color: var(--error);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      margin-top: 16px;
+      animation: entrar 0.2s ease;
+    }
+
+    .alerta.visible { display: flex; align-items: center; gap: 10px; }
+
+    /* ── Pantalla de éxito ──────────────────────────────────────── */
+    .exito-wrapper {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .exito-icono {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 16px;
+      animation: aparecer 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    @keyframes aparecer {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .exito-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 8px;
+    }
+
+    .exito-subtitulo {
+      color: var(--texto-suave);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .exito-detalle {
+      background: #f0f7f2;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .exito-fila {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #ddeee3;
+    }
+
+    .exito-fila:last-child { border-bottom: none; }
+    .exito-fila span:first-child { color: var(--texto-suave); }
+    .exito-fila span:last-child { font-weight: 500; color: var(--verde-oscuro); }
+
+    .exito-id {
+      font-size: 0.75rem;
+      color: var(--texto-suave);
+      background: #eee;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: monospace;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .btn-nueva {
+      background: var(--verde-oscuro);
+      color: var(--crema);
+      border: none;
+      border-radius: 10px;
+      padding: 14px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transicion);
+    }
+
+    .btn-nueva:hover { background: var(--verde-medio); }
+
+    /* ── Spinner ────────────────────────────────────────────────── */
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: girar 0.6s linear infinite;
+    }
+
+    @keyframes girar { to { transform: rotate(360deg); } }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .tarjeta { padding: 24px 20px; }
+      .grid-actividades { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="logo-icon">🌿</span>
+    <h1>EcoHarmony Park</h1>
+    <p>Sistema de inscripción a actividades</p>
+  </header>
+
+  <div class="contenedor">
+
+    <!-- Progreso -->
+    <div class="progreso-wrapper">
+      <div class="pasos-labels">
+        <span class="paso-label" id="lbl-1">Actividad</span>
+        <span class="paso-label" id="lbl-2">Horario</span>
+        <span class="paso-label" id="lbl-3">Visitantes</span>
+        <span class="paso-label" id="lbl-4">Confirmar</span>
+      </div>
+      <div class="barra-progreso">
+        <div class="barra-fill" id="barra" style="width: 25%"></div>
+      </div>
+    </div>
+
+    <!-- PASO 1: Actividad -->
+    <div class="tarjeta" id="paso-1">
+      <h2 class="paso-titulo">¿Qué actividad elegís?</h2>
+      <p class="paso-subtitulo">Seleccioná una de las experiencias disponibles en el parque.</p>
+      <div class="grid-actividades" id="grid-actividades">
+        <p style="color:#aaa; font-size:0.85rem">Cargando actividades...</p>
+      </div>
+      <div class="alerta" id="error-1">⚠️ <span></span></div>
+      <div class="nav-botones">
+        <button class="btn btn-primario" id="btn-1-siguiente">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- PASO 2: Horario -->
+    <div class="tarjeta" id="paso-2" style="display:none">
+      <h2 class="paso-titulo">Elegí un horario</h2>
+      <p class="paso-subtitulo" id="subtitulo-horario">Horarios disponibles para la actividad seleccionada.</p>
+      <div class="grid-horarios" id="grid-horarios"></div>
+      <div class="alerta" id="error-2">⚠️ <span></span></div>
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-2-atras">← Volver</button>
+        <button class="btn btn-primario" id="btn-2-siguiente">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- PASO 3: Visitantes -->
+    <div class="tarjeta" id="paso-3" style="display:none">
+      <h2 class="paso-titulo">Datos de los visitantes</h2>
+      <p class="paso-subtitulo">Indicá cuántas personas participarán y sus datos.</p>
+
+      <div class="campo">
+        <label>Cantidad de personas</label>
+        <div class="counter-wrapper">
+          <button class="btn-counter" id="btn-menos" disabled>−</button>
+          <span class="counter-numero" id="cantidad-display">1</span>
+          <button class="btn-counter" id="btn-mas">+</button>
+        </div>
+      </div>
+
+      <div id="formulario-visitantes"></div>
+
+      <div class="campo campo-email">
+        <label>Email para confirmación</label>
+        <input type="email" id="input-email" placeholder="tu@email.com" />
+      </div>
+
+      <div class="alerta" id="error-3">⚠️ <span></span></div>
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-3-atras">← Volver</button>
+        <button class="btn btn-primario" id="btn-3-siguiente">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- PASO 4: Términos y confirmación -->
+    <div class="tarjeta" id="paso-4" style="display:none">
+      <h2 class="paso-titulo">Términos y confirmación</h2>
+      <p class="paso-subtitulo">Revisá los términos específicos de la actividad antes de confirmar.</p>
+
+      <div class="terminos-box" id="terminos-contenido"></div>
+
+      <label class="checkbox-wrapper" id="checkbox-wrapper">
+        <input type="checkbox" id="acepta-terminos" />
+        <span class="checkbox-texto">Acepto los términos y condiciones específicos de la actividad en la que participaré.</span>
+      </label>
+
+      <div class="alerta" id="error-4">⚠️ <span></span></div>
+      <div class="nav-botones">
+        <button class="btn btn-secundario" id="btn-4-atras">← Volver</button>
+        <button class="btn btn-primario" id="btn-4-confirmar">
+          <span id="btn-confirmar-texto">Confirmar inscripción ✓</span>
+          <span class="spinner" id="spinner" style="display:none"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ÉXITO -->
+    <div class="tarjeta" id="paso-exito" style="display:none">
+      <div class="exito-wrapper">
+        <span class="exito-icono">🎉</span>
+        <h2 class="exito-titulo">¡Inscripción exitosa!</h2>
+        <p class="exito-subtitulo">Te enviamos un email de confirmación con todos los detalles de tu reserva.</p>
+        <div class="exito-detalle" id="exito-detalle"></div>
+        <p class="exito-id" id="exito-id"></p>
+        <button class="btn-nueva" onclick="reiniciar()">Hacer otra inscripción</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ── Base URL ──────────────────────────────────────────────────
+    const API = 'http://localhost:3000';
+
+    // ── Estado global ──────────────────────────────────────────────
+    const estado = {
+      pasoActual: 1,
+      actividadSeleccionada: null,
+      horarioSeleccionado: null,
+      cantidadVisitantes: 1,
+      visitantes: [],
+      email: '',
+      aceptaTerminos: false,
+      inscripcionId: null,
+      requiereTalle: false,
+    };
+
+    const ICONOS = {
+      'Tirolesa': '🧗',
+      'Safari': '🦁',
+      'Palestra': '🧱',
+      'Jardinería': '🌱',
+    };
+
+    const TERMINOS = {
+      'Tirolesa': '<strong>Tirolesa:</strong> Los participantes deben pesar entre 30 y 120 kg. Es obligatorio el uso del equipo de seguridad provisto. El talle de vestimenta es necesario para ajustar el arnés correctamente. No se permite la participación a personas con problemas cardíacos o vértigo severo.',
+      'Safari': '<strong>Safari:</strong> Mantené silencio y tranquilidad durante el recorrido. Prohibido alimentar o acercarse a los animales. Seguir en todo momento las instrucciones del guía. El parque no se responsabiliza por objetos personales perdidos.',
+      'Palestra': '<strong>Palestra:</strong> Es obligatorio el uso de calzado deportivo y el equipo provisto por el parque. El talle de vestimenta es necesario para el equipamiento. Menores de 12 años deben estar acompañados por un adulto. Informar al instructor sobre lesiones previas.',
+      'Jardinería': '<strong>Jardinería:</strong> Las plantas y semillas son propiedad del parque y no pueden retirarse sin autorización. Usar los guantes proporcionados al manipular herramientas. El parque provee todos los materiales necesarios. Actividad apta para todas las edades.',
+    };
+
+    const CON_TALLE = ['Tirolesa', 'Palestra'];
+
+    // ── Navegación entre pasos ─────────────────────────────────────
+    function mostrarPaso(n) {
+      document.querySelectorAll('[id^="paso-"]').forEach(el => el.style.display = 'none');
+      document.getElementById(`paso-${n === 'exito' ? 'exito' : n}`).style.display = 'block';
+
+      const progreso = { 1: 25, 2: 50, 3: 75, 4: 100 };
+      if (n !== 'exito') {
+        document.getElementById('barra').style.width = progreso[n] + '%';
+        ['1','2','3','4'].forEach(i => {
+          const lbl = document.getElementById(`lbl-${i}`);
+          lbl.className = 'paso-label';
+          if (parseInt(i) < n) lbl.classList.add('completado');
+          if (parseInt(i) === n) lbl.classList.add('activo');
+        });
+      }
+
+      estado.pasoActual = n;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function mostrarError(paso, msg) {
+      const el = document.getElementById(`error-${paso}`);
+      el.querySelector('span').textContent = msg;
+      el.classList.add('visible');
+      setTimeout(() => el.classList.remove('visible'), 5000);
+    }
+
+    // ── PASO 1: Cargar actividades ─────────────────────────────────
+    async function cargarActividades() {
+      try {
+        const res = await fetch(API + '/api/actividades');
+        const data = await res.json();
+        const grid = document.getElementById('grid-actividades');
+        grid.innerHTML = '';
+
+        data.actividades.forEach(nombre => {
+          const tieneTalle = CON_TALLE.includes(nombre);
+          const card = document.createElement('div');
+          card.className = 'card-actividad';
+          card.dataset.nombre = nombre;
+          card.innerHTML = `
+            <span class="icono">${ICONOS[nombre] || '🌿'}</span>
+            <span class="nombre">${nombre}</span>
+            ${tieneTalle ? '<span class="badge-talle">requiere talle</span>' : ''}
+          `;
+          card.addEventListener('click', () => seleccionarActividad(nombre, card));
+          grid.appendChild(card);
+        });
+      } catch (e) {
+        document.getElementById('grid-actividades').innerHTML =
+          '<p style="color:red">Error al cargar actividades. ¿Está corriendo el servidor?</p>';
+      }
+    }
+
+    function seleccionarActividad(nombre, card) {
+      document.querySelectorAll('.card-actividad').forEach(c => c.classList.remove('seleccionada'));
+      card.classList.add('seleccionada');
+      estado.actividadSeleccionada = nombre;
+      estado.requiereTalle = CON_TALLE.includes(nombre);
+    }
+
+    document.getElementById('btn-1-siguiente').addEventListener('click', async () => {
+      if (!estado.actividadSeleccionada) {
+        mostrarError(1, 'Por favor seleccioná una actividad.');
+        return;
+      }
+      await cargarHorarios();
+      mostrarPaso(2);
+    });
+
+    // ── PASO 2: Cargar horarios ────────────────────────────────────
+    async function cargarHorarios() {
+      const grid = document.getElementById('grid-horarios');
+      grid.innerHTML = '<p style="color:#aaa;font-size:0.85rem">Cargando horarios...</p>';
+      document.getElementById('subtitulo-horario').textContent =
+        `Horarios disponibles para ${estado.actividadSeleccionada}.`;
+
+      try {
+        const res = await fetch(API + `/api/actividades/${estado.actividadSeleccionada}/horarios`);
+        const data = await res.json();
+        grid.innerHTML = '';
+
+        if (data.horarios.length === 0) {
+          grid.innerHTML = '<p style="color:#aaa;font-size:0.85rem;grid-column:1/-1">No hay horarios disponibles en este momento.</p>';
+          return;
+        }
+
+        data.horarios.forEach(h => {
+          const card = document.createElement('div');
+          card.className = 'card-horario';
+          card.dataset.id = h.id;
+          card.innerHTML = `
+            <span class="hora">${h.hora}</span>
+            <span class="cupos">${h.cuposDisponibles} cupos</span>
+          `;
+          card.addEventListener('click', () => seleccionarHorario(h, card));
+          grid.appendChild(card);
+        });
+      } catch (e) {
+        grid.innerHTML = '<p style="color:red">Error al cargar horarios.</p>';
+      }
+    }
+
+    function seleccionarHorario(h, card) {
+      document.querySelectorAll('.card-horario').forEach(c => c.classList.remove('seleccionado'));
+      card.classList.add('seleccionado');
+      estado.horarioSeleccionado = h;
+    }
+
+    document.getElementById('btn-2-atras').addEventListener('click', () => {
+      estado.horarioSeleccionado = null;
+      mostrarPaso(1);
+    });
+
+    document.getElementById('btn-2-siguiente').addEventListener('click', () => {
+      if (!estado.horarioSeleccionado) {
+        mostrarError(2, 'Por favor seleccioná un horario.');
+        return;
+      }
+      renderizarFormularioVisitantes();
+      mostrarPaso(3);
+    });
+
+    // ── PASO 3: Visitantes ─────────────────────────────────────────
+    let cantidadVisitantes = 1;
+
+    function renderizarFormularioVisitantes() {
+      const container = document.getElementById('formulario-visitantes');
+      container.innerHTML = '';
+      for (let i = 0; i < cantidadVisitantes; i++) {
+        const card = document.createElement('div');
+        card.className = 'visitante-card';
+        card.innerHTML = `
+          <div class="visitante-titulo">
+            <span class="visitante-numero">${i + 1}</span>
+            Visitante ${i + 1}
+          </div>
+          <div class="campo">
+            <label>Nombre completo</label>
+            <input type="text" id="v${i}-nombre" placeholder="Ej: Juan Pérez" />
+          </div>
+          <div class="grid-2">
+            <div class="campo">
+              <label>DNI</label>
+              <input type="text" id="v${i}-dni" placeholder="Ej: 35123456" />
+            </div>
+            <div class="campo">
+              <label>Edad</label>
+              <input type="number" id="v${i}-edad" placeholder="Ej: 28" min="1" max="120" />
+            </div>
+          </div>
+          ${estado.requiereTalle ? `
+          <div class="campo">
+            <label>Talle de vestimenta</label>
+            <select id="v${i}-talle">
+              <option value="">Seleccioná un talle</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </div>` : ''}
+        `;
+        container.appendChild(card);
+      }
+      document.getElementById('cantidad-display').textContent = cantidadVisitantes;
+      document.getElementById('btn-menos').disabled = cantidadVisitantes <= 1;
+      document.getElementById('btn-mas').disabled = cantidadVisitantes >= (estado.horarioSeleccionado?.cuposDisponibles || 10);
+    }
+
+    document.getElementById('btn-menos').addEventListener('click', () => {
+      if (cantidadVisitantes > 1) { cantidadVisitantes--; renderizarFormularioVisitantes(); }
+    });
+
+    document.getElementById('btn-mas').addEventListener('click', () => {
+      cantidadVisitantes++;
+      renderizarFormularioVisitantes();
+    });
+
+    document.getElementById('btn-3-atras').addEventListener('click', () => mostrarPaso(2));
+
+    document.getElementById('btn-3-siguiente').addEventListener('click', () => {
+      const visitantes = [];
+      let valido = true;
+
+      for (let i = 0; i < cantidadVisitantes; i++) {
+        const nombre = document.getElementById(`v${i}-nombre`)?.value.trim();
+        const dni = document.getElementById(`v${i}-dni`)?.value.trim();
+        const edadRaw = document.getElementById(`v${i}-edad`)?.value.trim();
+        const edad = parseInt(edadRaw);
+        const talleEl = document.getElementById(`v${i}-talle`);
+        const talle = talleEl ? talleEl.value : undefined;
+        const n = i + 1;
+
+        if (!nombre) {
+          mostrarError(3, `El nombre del visitante ${n} es obligatorio.`);
+          valido = false; break;
+        }
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(nombre)) {
+          mostrarError(3, `El nombre del visitante ${n} solo puede contener letras y espacios.`);
+          valido = false; break;
+        }
+        if (nombre.length > 30) {
+          mostrarError(3, `El nombre del visitante ${n} no puede superar los 30 caracteres.`);
+          valido = false; break;
+        }
+        if (!dni) {
+          mostrarError(3, `El DNI del visitante ${n} es obligatorio.`);
+          valido = false; break;
+        }
+        if (!/^\d{7,8}$/.test(dni)) {
+          mostrarError(3, `El DNI del visitante ${n} debe tener entre 7 y 8 dígitos numéricos.`);
+          valido = false; break;
+        }
+        if (!edadRaw) {
+          mostrarError(3, `La edad del visitante ${n} es obligatoria.`);
+          valido = false; break;
+        }
+        if (isNaN(edad) || edad < 1 || edad > 120) {
+          mostrarError(3, `La edad del visitante ${n} debe estar entre 1 y 120 años.`);
+          valido = false; break;
+        }
+        if (estado.requiereTalle && !talle) {
+          mostrarError(3, `Seleccioná el talle del visitante ${n}.`);
+          valido = false; break;
+        }
+
+        const v = { nombre, dni, edad };
+        if (talle) v.talle = talle;
+        visitantes.push(v);
+      }
+
+      const email = document.getElementById('input-email').value.trim();
+
+      if (!valido) { return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { mostrarError(3, 'Ingresá un email válido (ej: nombre@dominio.com).'); return; }
+
+      estado.visitantes = visitantes;
+      estado.email = email;
+
+      // Mostrar términos según actividad
+      document.getElementById('terminos-contenido').innerHTML =
+        TERMINOS[estado.actividadSeleccionada] || 'Seguir las instrucciones del personal del parque en todo momento.';
+
+      mostrarPaso(4);
+    });
+
+    // ── PASO 4: Términos ───────────────────────────────────────────
+    document.getElementById('acepta-terminos').addEventListener('change', function () {
+      document.getElementById('checkbox-wrapper').classList.toggle('marcado', this.checked);
+    });
+
+    document.getElementById('btn-4-atras').addEventListener('click', () => mostrarPaso(3));
+
+    document.getElementById('btn-4-confirmar').addEventListener('click', async () => {
+      const acepta = document.getElementById('acepta-terminos').checked;
+      if (!acepta) {
+        mostrarError(4, 'Debés aceptar los términos y condiciones para continuar.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-4-confirmar');
+      btn.disabled = true;
+      document.getElementById('btn-confirmar-texto').style.display = 'none';
+      document.getElementById('spinner').style.display = 'inline-block';
+
+      try {
+        const res = await fetch(API + '/api/inscripciones', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitud: {
+              actividad: estado.actividadSeleccionada,
+              horarioId: estado.horarioSeleccionado.id,
+              visitantes: estado.visitantes,
+              aceptaTerminos: true,
+            },
+            email: estado.email,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          mostrarError(4, data.error || 'Error al procesar la inscripción.');
+          btn.disabled = false;
+          document.getElementById('btn-confirmar-texto').style.display = 'inline';
+          document.getElementById('spinner').style.display = 'none';
+          return;
+        }
+
+        const ins = data.inscripcion;
+        estado.inscripcionId = ins.id;
+
+        document.getElementById('exito-detalle').innerHTML = `
+          <div class="exito-fila"><span>Actividad</span><span>${ins.actividad}</span></div>
+          <div class="exito-fila"><span>Horario</span><span>${ins.horario.hora}</span></div>
+          <div class="exito-fila"><span>Visitantes</span><span>${ins.visitantes.length} persona${ins.visitantes.length > 1 ? 's' : ''}</span></div>
+          <div class="exito-fila"><span>Email</span><span>${estado.email}</span></div>
+        `;
+        document.getElementById('exito-id').textContent = `ID de inscripción: ${ins.id}`;
+
+        mostrarPaso('exito');
+        document.getElementById('progreso-wrapper')?.style && (document.querySelector('.progreso-wrapper').style.display = 'none');
+
+      } catch (e) {
+        mostrarError(4, 'Error de conexión con el servidor.');
+        btn.disabled = false;
+        document.getElementById('btn-confirmar-texto').style.display = 'inline';
+        document.getElementById('spinner').style.display = 'none';
+      }
+    });
+
+    // ── Reiniciar ──────────────────────────────────────────────────
+    function reiniciar() {
+      cantidadVisitantes = 1;
+      Object.assign(estado, {
+        pasoActual: 1,
+        actividadSeleccionada: null,
+        horarioSeleccionado: null,
+        cantidadVisitantes: 1,
+        visitantes: [],
+        email: '',
+        aceptaTerminos: false,
+      });
+      document.getElementById('acepta-terminos').checked = false;
+      document.getElementById('checkbox-wrapper').classList.remove('marcado');
+      // Resetear botón confirmar por si quedó bloqueado
+      const btnConfirmar = document.getElementById('btn-4-confirmar');
+      btnConfirmar.disabled = false;
+      document.getElementById('btn-confirmar-texto').style.display = 'inline';
+      document.getElementById('spinner').style.display = 'none';
+      document.querySelector('.progreso-wrapper').style.display = '';
+      mostrarPaso(1);
+      cargarActividades();
+    }
+
+    // ── Inicio ─────────────────────────────────────────────────────
+    cargarActividades();
+  </script>
+</body>
+</html>
