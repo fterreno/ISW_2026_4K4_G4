@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./server.ts",
+    "test": "jest",
+    "test:verbose": "jest --verbose"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "jest": "^30.4.2",
     "node": "^24.16.0",
     "ts-jest": "^29.4.11",
