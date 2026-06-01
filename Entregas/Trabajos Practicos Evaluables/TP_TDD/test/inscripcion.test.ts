@@ -206,7 +206,7 @@ describe("US5 - Inscribirse a una actividad", () => {
     it("FALLA: cantidad de visitantes supera los cupos disponibles", () => {
       // T1 tiene 5 cupos
       const visitantes: DatosVisitante[] = Array.from({ length: 6 }, (_, i) => ({
-        nombre: `Visitante ${i}`,
+        nombre: `Visitante`,
         dni: `3500000${i}`,
         edad: 25,
         talle: "M",
