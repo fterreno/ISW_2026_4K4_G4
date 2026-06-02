@@ -78,7 +78,7 @@ ISW_2026_4K4_G4
 | Guía de Trabajos Prácticos Evaluables                | Material de Estudio | `Guía de Trabajos Prácticos Evaluables.pdf`         | `ISW_2026_4K4_G4/Documentacion/`                             |
 | Lineamientos para Trabajos de Investigación Grupal   | Planificación       | `ISW_Lineamientos_2026.pdf`                         | `ISW_2026_4K4_G4/Entregas/Trabajos de Investigacion Grupal/` |
 | Bibliografía                                         | Material de Estudio | `<<Titulo>>.pdf`                                    | `ISW_2026_4K4_G4/Documentacion/Bibliografía/`                |
-| Trabajos Prácticos                                   | Entregas            | `TP_<<Tema>>`                                       | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables`     |
+| Trabajos Prácticos                                   | Entregas            | `TP_<<Tema>>/TP_<<Tema>>.pdf`                       | `ISW_2026_4K4_G4/Entregas/Trabajos Prácticos Evaluables/TP_<<Tema>>/`     |
 | Clases Grabadas                                      | Material de Estudio | `ISW_Clases_grabadas.xlsx`                          | `ISW_2026_4K4_G4/Documentación/`                             |
 | Presentación de la materia ISW                       | Planificación       | `Presentación_ISW.pdf`                              | `ISW_2026_4K4_G4/Planificación/`                             |
 | Trabajos de Investigación Grupal                     | Entregas            | `TIG<<Nro>>_<<Tema>>.pdf`                           | `ISW_2026_4K4_G4/Entregas/Trabajos de Investigación Grupal/` |
@@ -87,7 +87,10 @@ ISW_2026_4K4_G4
 | Plantilla Charla Ted                                 | Planificacion       | `Plantilla charla ted.pdf`                          | `ISW_2026_4K4_G4/Planificacion/`                             |
 | Resoluciones del grupo                               | Material de Estudio | `TP_<<Nro>>_<<Autor>>`                              | `ISW_2026_4K4_G4/Documentacion/Resoluciones`                 |
 | Resumen Propios                                      | Material de Estudio | `Parcial_<<Nro>>_<<Autor>>.md`                      | `ISW_2026_4K4_G4/Documentacion/Resumenes/`                   |
+
 | Toma de Notas                                        | Material de Estudio | `YYYY-MM-DD_<<Autor>>.(md or pdf)`                  | `ISW_2026_4K4_G4/Documentacion/Clases/`                      |
+
+> Nota sobre entregas de Trabajos Prácticos: Para cada TP se debe crear una carpeta en `Entregas/Trabajos Practicos Evaluables` con nombre `TP_<<Tema>>`. Si el TP incluye código, subir la carpeta con el código y colocar dentro el PDF del trabajo con el mismo nombre (ej.: `Entregas/Trabajos Practicos Evaluables/TP_TDD/TP_TDD.pdf`). Para TPs sin código, igualmente crear la carpeta y dejar el PDF dentro. Evitar dejar archivos sueltos en la carpeta principal de entregas.
 
 ---
 
