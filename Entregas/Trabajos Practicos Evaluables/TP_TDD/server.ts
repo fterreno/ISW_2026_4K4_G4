@@ -5,14 +5,14 @@ import { ServicioInscripcion } from "./control/servicioInscripcion";
 import { EmailServiceConsola } from "./boundary/EmailServiceConsola";
 import { actividadesEnMemoria } from "./persistence/datos";
 import { ACTIVIDADES_CON_TALLE } from "./entity/models";
+import { getAuthUrl, handleAuthCallback, setTokens } from "./control/emailService";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "boundary")));
 
-const emailService = new EmailServiceConsola();
-const servicio = new ServicioInscripcion(actividadesEnMemoria, emailService);
+const servicio = new ServicioInscripcion(actividadesEnMemoria);
 
 app.get("/api/actividades", (_req, res) => {
   const nombres = servicio.obtenerActividadesDisponibles();
@@ -43,8 +43,23 @@ app.post("/api/inscripciones", (req, res) => {
   }
 });
 
+app.get("/auth/google", (_req, res) => {
+  res.redirect(getAuthUrl());
+});
+
+app.get("/auth/callback", async (req, res) => {
+  try {
+    const tokens = await handleAuthCallback(req.query.code as string);
+    setTokens(tokens);
+    res.redirect('/');
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`\n🌿 EcoHarmony Park - Sistema de Inscripciones`);
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}\n`);
+  console.log(`\n EcoHarmony Park - Sistema de Inscripciones`);
+  console.log(` Servidor corriendo en http://localhost:${PORT}\n`);
 });

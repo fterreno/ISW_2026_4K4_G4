@@ -1,5 +1,7 @@
 node_modules/
 dist/
+.env
+token.json
 *.js.map
 *.d.ts
 *.d.ts.map
