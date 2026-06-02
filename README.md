@@ -60,10 +60,15 @@ Establecemos como criterio para implementar línea base los días posteriores a 
 ISW_2026_4K4_G4
 ├── Planificación
 ├── Documentación
+│   ├── Clases
+│   ├── Resoluciones
+│   ├── Resumenes
 │   ├── Presentaciones de Clases
 │   └── Bibliografía
 └── Entregas
     ├── Trabajos Practicos Evaluables
+    │    ├── TP_SCRUM
+    │    ├── TP_TDD
     └── Trabajos de Investigacion Grupal
 ```
 
@@ -87,8 +92,7 @@ ISW_2026_4K4_G4
 | Plantilla Charla Ted                                 | Planificacion       | `Plantilla charla ted.pdf`                          | `ISW_2026_4K4_G4/Planificacion/`                             |
 | Resoluciones del grupo                               | Material de Estudio | `TP_<<Nro>>_<<Autor>>`                              | `ISW_2026_4K4_G4/Documentacion/Resoluciones`                 |
 | Resumen Propios                                      | Material de Estudio | `Parcial_<<Nro>>_<<Autor>>.md`                      | `ISW_2026_4K4_G4/Documentacion/Resumenes/`                   |
-
-| Toma de Notas                                        | Material de Estudio | `YYYY-MM-DD_<<Autor>>.(md or pdf)`                  | `ISW_2026_4K4_G4/Documentacion/Clases/`                      |
+| Toma de Notas                                        | Material de Estudio | `YYYY-MM-DD_<<Autor>>`                  | `ISW_2026_4K4_G4/Documentacion/Clases/`                      |
 
 > Nota sobre entregas de Trabajos Prácticos: Para cada TP se debe crear una carpeta en `Entregas/Trabajos Practicos Evaluables` con nombre `TP_<<Tema>>`. Si el TP incluye código, subir la carpeta con el código y colocar dentro el PDF del trabajo con el mismo nombre (ej.: `Entregas/Trabajos Practicos Evaluables/TP_TDD/TP_TDD.pdf`). Para TPs sin código, igualmente crear la carpeta y dejar el PDF dentro. Evitar dejar archivos sueltos en la carpeta principal de entregas.
 
