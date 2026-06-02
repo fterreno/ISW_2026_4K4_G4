@@ -3,21 +3,21 @@ import {
   ActividadNombre,
   ACTIVIDADES_CON_TALLE,
   DatosVisitante,
-  EmailService,
   Horario,
   Inscripcion,
   SolicitudInscripcion,
 } from "../entity/models";
+import {sendEmail} from "./emailService"
 
 export class ServicioInscripcion {
   constructor(
     private readonly actividades: Actividad[],
-    private readonly emailService: EmailService
   ) {}
 
   // ── Consultas públicas ───────────────────────────────────────────────────────
 
   obtenerActividadesDisponibles(): ActividadNombre[] {
+    console.log(process.env.GOOGLE_REDIRECT_URI); // agregá esto temporalmente
     return this.actividades.map((a) => a.nombre);
 
   }
@@ -34,7 +34,18 @@ export class ServicioInscripcion {
    this.validar(solicitud);
 
     const inscripcion = this.crearInscripcion(solicitud);
-    this.emailService.enviarConfirmacion(inscripcion, emailDestino);
+    sendEmail(emailDestino, {
+    actividad: inscripcion.actividad,
+    horario: inscripcion.horario.hora,
+    visitantes: inscripcion.visitantes.map(v => ({
+      nombre: v.nombre,
+      dni: v.dni,
+      edad: v.edad,
+    })),
+    idInscripcion: inscripcion.id,
+    });
+    console.log(emailDestino)
+    //this.emailService.enviarConfirmacion(inscripcion, emailDestino);
 
     return inscripcion;
   }

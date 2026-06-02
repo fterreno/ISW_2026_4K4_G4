@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./server.ts",
     "test": "jest",
+    "start": "ts-node ./server.ts",
     "test:verbose": "jest --verbose"
   },
   "author": "",
@@ -17,7 +16,9 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "googleapis": "^173.0.0",
     "jest": "^30.4.2",
     "node": "^24.16.0",
     "ts-jest": "^29.4.11",
