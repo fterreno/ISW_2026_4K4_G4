@@ -268,7 +268,7 @@ label {
   margin-bottom: 6px;
 }
 
-input, select {
+input:not([type="checkbox"]):not([type="radio"]), select {
   width: 100%;
   padding: 11px 14px;
   border: 1.5px solid var(--borde);

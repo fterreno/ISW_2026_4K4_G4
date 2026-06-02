@@ -7,6 +7,7 @@ document.getElementById('acepta-terminos').addEventListener('change', function (
   document.getElementById('checkbox-wrapper').classList.toggle('marcado', this.checked);
 });
 
+
 document.getElementById('btn-atras').addEventListener('click', () => {
   window.location.href = 'formularioVisitantes.html';
 });
